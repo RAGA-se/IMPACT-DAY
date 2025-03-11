@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: white;
+    }
+    .poster {
+      width: 900px;
+      background: linear-gradient(135deg, #000000 0%, #0f1a2b 100%);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      position: relative;
+    }
+    .background-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700"><defs><radialGradient id="grad1" cx="50%" cy="50%" r="70%" fx="50%" fy="50%"><stop offset="0%" style="stop-color:rgb(0,102,255);stop-opacity:0.3" /><stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0" /></radialGradient><radialGradient id="grad2" cx="30%" cy="30%" r="70%" fx="30%" fy="30%"><stop offset="0%" style="stop-color:rgb(204,0,255);stop-opacity:0.2" /><stop offset="100%" style="stop-color:rgb(0,0,0);stop-opacity:0" /></radialGradient></defs><rect width="900" height="700" fill="url(%23grad1)" /><rect width="900" height="700" fill="url(%23grad2)" /></svg>');
+      opacity: 0.6;
+      z-index: 0;
+    }
+    .light-streaks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700"><line x1="0" y1="200" x2="900" y2="350" style="stroke:rgb(0,102,255);stroke-width:2;opacity:0.4" /><line x1="100" y1="0" x2="800" y2="700" style="stroke:rgb(0,174,255);stroke-width:3;opacity:0.3" /><line x1="300" y1="0" x2="600" y2="700" style="stroke:rgb(204,0,255);stroke-width:2;opacity:0.3" /><line x1="500" y1="0" x2="850" y2="600" style="stroke:rgb(204,0,255);stroke-width:1;opacity:0.4" /><line x1="200" y1="700" x2="600" y2="0" style="stroke:rgb(0,225,255);stroke-width:2;opacity:0.2" /></svg>');
+      z-index: 1;
+    }
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      padding: 40px;
+    }
+    .header {
+      margin-bottom: 40px;
+    }
+    h1 {
+      color: #3DCD58;
+      margin: 0;
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-top: 10px;
+      color: #ffffff;
+    }
+    .story-intro {
+      background-color: rgba(15, 30, 50, 0.7);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(61, 205, 88, 0.3);
+      color: #cccccc;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .feature {
+      background-color: rgba(15, 30, 50, 0.7);
+      border-radius: 10px;
+      padding: 25px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(61, 205, 88, 0.3);
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(61, 205, 88, 0.2);
+    }
+    .feature-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .icon {
+      width: 50px;
+      height: 50px;
+      background-color: #3DCD58;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      color: white;
+      font-size: 24px;
+    }
+    h2 {
+      margin: 0;
+      color: #3DCD58;
+      font-size: 20px;
+    }
+    .feature-body {
+      color: #cccccc;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .highlight {
+      background-color: rgba(61, 205, 88, 0.1);
+      border-left: 4px solid #3DCD58;
+      padding: 8px 12px;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .device-onboarding, .device-section {
+      margin-top: 40px;
+    }
+    .section-header {
+      font-size: 22px;
+      color: #3DCD58;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .onboarding-steps {
+      display: flex;
+      justify-content: space-between;
+    }
+    .onboarding-step {
+      background-color: rgba(15, 30, 50, 0.7);
+      border-radius: 10px;
+      padding: 20px;
+      width: 22%;
+      border: 1px solid rgba(61, 205, 88, 0.3);
+      text-align: center;
+    }
+    .step-icon {
+      font-size: 36px;
+      color: #3DCD58;
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-size: 16px;
+      color: #3DCD58;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .step-description {
+      font-size: 12px;
+      color: #cccccc;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-right: 10px;
+    }
+    .logo-green {
+      background-color: #3DCD58;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .copyright {
+      text-align: right;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="background-effect"></div>
+    <div class="light-streaks"></div>
+    <div class="content-wrapper">
+      <div class="header">
+        <h1>EcostruXure Technology Platform</h1>
+        <div class="subtitle">Allows Schneider Electric to manage fleet of devices remotely from cloud applications, enabling cloud to device and device to cloud data capabilities.</div>
+      </div>
+      
+
+      
+      <div class="device-onboarding">
+        <div class="section-header">Device Onboarding Process</div>
+        <div class="onboarding-steps">
+          <div class="onboarding-step">
+            <div class="step-icon">🏭</div>
+            <div class="step-title">A - Prerequisite Step</div>
+            <div class="step-description">Device is provided with EdgeOS, IoT Edge stack and birth certificate</div>
+          </div>
+          <div class="onboarding-step">
+            <div class="step-icon">📋</div>
+            <div class="step-title">B - Enrollment Step</div>
+            <div class="step-description">On "Enroll" request, device is declared on platform and associated with Manufacturing Tenant</div>
+          </div>
+          <div class="onboarding-step">
+            <div class="step-icon">🌐</div>
+            <div class="step-title">C - Provisioning Step</div>
+            <div class="step-description">Device establishes secured connection to platform, receives IoTHub connection string and certificate</div>
+          </div>
+          <div class="onboarding-step">
+            <div class="step-icon">🔑</div>
+            <div class="step-title">D - Claiming Step</div>
+            <div class="step-description">A "Claim" request moves the device from Manufacturing Tenant to the LoB Tenant</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="device-section">
+        <div class="section-header">Cloud to Device Data</div>
+      </div>
+      
+      <div class="content">
+        <div class="feature">
+          <div class="feature-header">
+            <div class="icon">🌡️</div>
+            <h2>Remote Command Execution</h2>
+          </div>
+          <div class="feature-body">
+            Send commands to your devices instantly from anywhere in the world.
+            <div class="highlight">Example: Change thermostat temperature from 68°F to 72°F with a single tap</div>
+          </div>
+        </div>
+
+       <div class="feature">
+          <div class="icon">⏱️</div>
+          <h2>Date & Time Management</h2>
+          <div class="feature-body">
+            Ensure your devices always have the correct time settings.
+            <div class="highlight">• Verify device clock accuracy remotely<br>
+            • Configure custom sync policies to update internal clocks</div>
+        </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-header">
+            <div class="icon">📊</div>
+            <h2>Monitoring</h2>
+          </div>
+          <div class="feature-body">
+            Comprehensive device insights at your fingertips.
+            <div class="highlight">
+              <div style="margin-top: 5px;">
+                <strong>System Metrics:</strong> <br>
+                □ Connectivity Status <br>
+                □ RAM Usage <br>
+                □ Disk Usage <br>
+                □  CPU Usage
+              </div>
+              <div style="margin-top: 5px;">
+                <strong>Logs: </strong> <br>
+                □ Application Logs (Troubleshooting) <br>
+                □ Device System Logs <br>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-header">
+            <div class="icon">⬆️</div>
+            <h2>Firmware Updates</h2>
+          </div>
+          <div class="feature-body">
+            Keep your devices secure and up-to-date with over-the-air firmware updates.
+            <div class="highlight">Deploy critical security patches and new features without physical access</div>
+          </div>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-header">
+            <div class="icon">⚙️</div>
+            <h2>Configuration Management</h2>
+          </div>
+          <div class="feature-body">
+            Easily configure and reconfigure your devices remotely.
+            <div class="highlight">Select and deploy configuration files from a centralized repository to any device</div>
+          </div>
+        </div>
+
+
+      <div class="feature">
+        <div class="feature-header">
+          <div class="icon">⚙️</div>
+          <h2>Device Information</h2>
+        </div>
+        <div class="feature-body">
+          <div class="highlight">
+            • Search/query device information based on attributes associated to a device <br>
+            • Edit the device information in case during enrollment LOB has done some mistake.
+          </div>
+        </div>
+      </div>
+    </div>
+
+      
+      <div class="device-section">
+        <div class="section-header"> Device to Cloud Data </div>
+        <div class="content">
+          <div class="feature">
+            <div class="feature-header">
+              <div class="icon">📡</div>
+              <h2>Message Routing</h2>
+            </div>
+            <div class="feature-body">
+              Intelligent routing of device messages based on properties.
+              <div class="highlight">
+                Example: A device is sending near real-time temperature to the ETP cloud.
+              </div>
+            </div>
+          </div>
+          
+          <div class="feature">
+            <div class="feature-header">
+              <div class="icon">📂</div>
+              <h2>Blob Upload</h2>
+            </div>
+            <div class="feature-body">
+              Secure and efficient large file transfers.
+              <div class="highlight">
+                • Send large files and blobs
+                • Service principal with right data owner access role can access file
+                • Enables cloud-based computation of uploaded files
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      <div class="footer">
+        <div class="logo">
+          <div class="logo-text">LIFE IS ON</div>
+          <div class="logo-green">Schneider Electric</div>
+        </div>
+        <div class="copyright">Property of Schneider Electric</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
